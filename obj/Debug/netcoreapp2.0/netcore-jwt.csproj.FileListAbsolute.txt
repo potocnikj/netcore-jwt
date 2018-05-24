@@ -1,0 +1,10 @@
+/srv/apps/netcore-jwt/obj/Debug/netcoreapp2.0/netcore-jwt.csproj.CoreCompileInputs.cache
+/srv/apps/netcore-jwt/obj/Debug/netcoreapp2.0/netcore-jwt.AssemblyInfoInputs.cache
+/srv/apps/netcore-jwt/obj/Debug/netcoreapp2.0/netcore-jwt.AssemblyInfo.cs
+/srv/apps/netcore-jwt/bin/Debug/netcoreapp2.0/netcore-jwt.deps.json
+/srv/apps/netcore-jwt/bin/Debug/netcoreapp2.0/netcore-jwt.runtimeconfig.json
+/srv/apps/netcore-jwt/bin/Debug/netcoreapp2.0/netcore-jwt.runtimeconfig.dev.json
+/srv/apps/netcore-jwt/bin/Debug/netcoreapp2.0/netcore-jwt.dll
+/srv/apps/netcore-jwt/bin/Debug/netcoreapp2.0/netcore-jwt.pdb
+/srv/apps/netcore-jwt/obj/Debug/netcoreapp2.0/netcore-jwt.dll
+/srv/apps/netcore-jwt/obj/Debug/netcoreapp2.0/netcore-jwt.pdb
