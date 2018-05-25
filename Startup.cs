@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using netcore_jwt.Middleware;
 using Services;
 
 namespace netcore_jwt
@@ -38,7 +32,8 @@ namespace netcore_jwt
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            
             app.UseMvc();
         }
     }
