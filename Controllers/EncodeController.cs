@@ -6,7 +6,7 @@ using Services;
 namespace netcore_jwt.Controllers
 {
     [Route("v1/[controller]")]
-    public class EncodeController : Controller
+    public class EncodeController : BaseController
     {
         private readonly JwtService _svc;
         
@@ -16,9 +16,9 @@ namespace netcore_jwt.Controllers
         }
         
         [HttpGet]
-        public string Get()
+        public ActionResult Get()
         {
-            return this._svc.Encode(HttpContext.Request.Query["jwt"].ToString());
+            return Ok(_svc.Encode(HttpContext.Request.Query["jwt"].ToString()));
         }
     }
 }

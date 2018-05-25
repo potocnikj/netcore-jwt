@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
+using Services;
 
 namespace netcore_jwt.Controllers
 {
     [Route("v1/[controller]")]
     public class DecodeController : Controller
     {
+        private readonly JwtService _svc;
+        
+        public DecodeController(JwtService svc)
+        {
+            _svc = svc;
+        }
+        
         [HttpGet]
-        public string Get()
+        public ActionResult Get()
         {
-            var decodedBytes = Convert.FromBase64String(HttpContext.Request.Query["jwt"].ToString());
-            
-            return System.Text.Encoding.Unicode.GetString(decodedBytes);
-        }
-     
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+            return Ok(_svc.Decode(HttpContext.Request.Query["jwt"].ToString()));
+        
     }
 }
