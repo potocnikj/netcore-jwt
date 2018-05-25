@@ -6,7 +6,7 @@ using Services;
 
 namespace netcore_jwt.Controllers
 {
-  [Route("v1/[controller]")]
+  [Route("v1")]
   public class JwtController : BaseController
   {
     private readonly JwtService jwtService;
