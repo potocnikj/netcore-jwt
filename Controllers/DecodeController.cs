@@ -17,9 +17,15 @@ namespace netcore_jwt.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult Decode(string jwt) // query string works by default
         {
-            return Ok(_svc.Decode(HttpContext.Request.Query["jwt"].ToString()));
+            return Ok(_svc.Decode(jwt));
+        }
+
+        [HttpPost]
+        public ActionResult DecodeFromBody([FromBody]JwtRequestDTO jwt) // This how you would bind from post body. Although doesn't make sense in this case. Just use query string
+        {
+            return Ok(_svc.Decode(jwt.Token));
         }
     }
 }
