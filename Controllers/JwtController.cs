@@ -17,16 +17,16 @@ namespace netcore_jwt.Controllers
     }
 
     [HttpGet("decode")]
-    public IActionResult Decode(string token)
+    public IActionResult Decode(string jwt)
     {
-      var result = this.jwtService.Decode(token);
+      var result = this.jwtService.Decode(jwt);
       return Ok(result);
     }
 
     [HttpGet("encode")]
-    public IActionResult Encode(string data)
+    public IActionResult Encode(string jwt)
     {
-      var result = this.jwtService.Encode(data);
+      var result = this.jwtService.Encode(jwt);
       return Ok(result);
     }
   }
