@@ -29,5 +29,13 @@ namespace netcore_jwt.Controllers
       var result = this.jwtService.Encode(jwt);
       return Ok(result);
     }
+
+    [HttpPost("decode")]
+    public IActionResult DecodePost([FromBody] JwtRequestDTO token)
+    {
+        var result = jwtService.Encode(token.Token);
+
+        return Ok(result);
+    }
   }
 }
