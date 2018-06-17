@@ -24,7 +24,12 @@ namespace netcore_jwt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+
+            if(this.Configuration.GetValue<bool>("UseMvc"))
+            {
+                services.AddMvc();
+            }
+            
             services.AddScoped<JwtService>();
             
             services.AddSingleton(Configuration);
@@ -32,44 +37,22 @@ namespace netcore_jwt
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if(Boolean.Parse(Configuration["UseMvc"]))
-            {
-                Console.WriteLine("using mvc");
-                app.UseMiddleware<ErrorHandlingMiddleware>();
-                app.UseMvc();
+        {            
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
+            string pipeline = string.Empty;
+            if(this.Configuration.GetValue<bool>("UseMvc"))
+            {
+                pipeline = "MVC";                
+                app.UseMvc();
             }
             else
             {
-                // You could (should?) encapsulate this logic into a piece of middleware. Makes it cleaner and potentialy reusable.
-                app.Map("/v1/encode", appBuilder => {
-                    
-                    appBuilder.UseMiddleware<ErrorHandlingMiddleware>();
-                    appBuilder.Run(async context => {
-                        var data = context.Request.Query["data"];
-                        var service = context.RequestServices.GetService<JwtService>();
-                        var token = service.Encode(data);
-
-                        var result = ResponseDTO.Create(token);
-
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
-                    });
-                });
-                app.Map("/v1/decode", appBuilder => {
-                    
-                    appBuilder.UseMiddleware<ErrorHandlingMiddleware>();
-                    appBuilder.Run(async context => {
-                        var token = context.Request.Query["token"];
-                        var service = context.RequestServices.GetService<JwtService>();
-                        var data = service.Decode(token); 
-                            
-                        var result = ResponseDTO.Create(data);
-
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
-                    });
-                });
+                pipeline = "JWT Middleware";
+                app.UseMiddleware<JwtMiddleware>();                
             }
+            
+            Console.WriteLine($"Using pipeline: {pipeline}");
         }
     }
 }
